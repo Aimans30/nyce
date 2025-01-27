@@ -10,51 +10,100 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 const sampleProducts = [
   {
-    name: "Crystal Drop Earrings",
-    description: "Elegant crystal drop earrings with sterling silver hooks",
-    price: 49.99,
-    image: "https://images.unsplash.com/photo-1635767798638-3665c302e27c?auto=format&fit=crop&q=80",
-    category: "Earrings"
+    name: "Silver Frost Bow",
+    description: "Make a statement with this stunning silver frost bow. Perfect for any occasion, this bow is sure to turn heads.",
+    price: 100,
+    image: "https://i.imghippo.com/files/FHL3080vYQ.jpg",
+    category: "Bow"
   },
   {
-    name: "Pearl Hair Clip Set",
-    description: "Set of 3 beautiful pearl-embellished hair clips",
-    price: 29.99,
-    image: "https://images.unsplash.com/photo-1589731379771-7aea43db4646?auto=format&fit=crop&q=80",
-    category: "Hair Accessories"
+    name: "Classic Black Bow",
+    description: "A classic black bow for any occasion. Perfect for adding a touch of elegance to your outfit.",
+    price: 100,
+    image: "https://i.imghippo.com/files/DsCo4135ZM.jpg",
+    category: "Bow"
   },
   {
-    name: "Butterfly Hair Band",
-    description: "Delicate butterfly design headband with crystals",
-    price: 19.99,
-    image: "https://images.unsplash.com/photo-1625893165290-cc52b8ca54f9?auto=format&fit=crop&q=80",
-    category: "Hair Accessories"
+    name: "Peachy Dreams Bow",
+    description: "Sweet as sunrise,our peach satin bow adds a soft silk touch to any hairstyle",
+    price: 100,
+    image: "https://i.imghippo.com/files/HKvz3078g.jpg",
+    category: "Bow"
   },
   {
-    name: "Pearl Necklace Set",
-    description: "Classic pearl necklace with matching earrings",
-    price: 79.99,
-    image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&q=80",
-    category: "Sets"
+    name: "Twilight Romance Bow",
+    description: "This satin statement piece in dreamy lilac adds the perfect touch of dusk inspired elegance to any look.",
+    price: 100,
+    image: "https://i.imghippo.com/files/JD2976t.jpg",
+    category: "Bow"
   },
   {
-    name: "Crystal Hair Pins",
-    description: "Set of 6 crystal-embellished hair pins",
-    price: 34.99,
-    image: "https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?auto=format&fit=crop&q=80",
-    category: "Hair Accessories"
+    name: "Holy Trinity Combo",
+    description: "Silk scrunchies in three dreamy neutrals for those effortlessly put together moments. Avalaible in Gold,Dusty Rose and Butter Cream",
+    price: 150,
+    image: "https://i.imghippo.com/files/bwzm4184d.jpg",
+    category: "Scrunchie"
   },
   {
-    name: "Floral Hair Scrunchies",
-    description: "Pack of 3 floral print silk scrunchies",
-    price: 15.99,
-    image: "https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?auto=format&fit=crop&q=80",
-    category: "Hair Accessories"
-  }
+    name: "Champagne Dreams Scrunchie",
+    description: "These golden scrunchies will give you quiet luxury for your haircare and your updo's new best friend",
+    price: 50,
+    image: "https://i.imghippo.com/files/xJu5479ZA.jpg",
+    category: "Scrunchie"
+  },
+  {
+    name: "Muave Mistress Scrunchie",
+    description: "Best paired with light and soft coloured outfits",
+    price: 50,
+    image: "https://i.imghippo.com/files/ougX6028qyU.jpg",
+    category: "Scrunchie"
+  },
+  {
+    name: "Sage Green Scrunchie",
+    description: "Perfect for both casual days and dressy moments",
+    price: 50,
+    image: "https://i.imghippo.com/files/bO3135ZVE.jpg",
+    category: "Scrunchie"
+  },
+  {
+    name: "Sunset Sorbet Bracelet",
+    description: "With tones of purple,buttercream and hot pink, it makes it the perfect choice for something creative and quirky",
+    price: 125,
+    image: "https://i.imghippo.com/files/SVt2492EGc.jpg",
+    category: "Bracelet"
+  },
+  {
+    name: "Moonlight Aura and Noir Glow Bracelet",
+    description: "Glows of moonlight and darkness of noir, elegantly designed for your special ocassions",
+    price: 220,
+    image: "https://i.imghippo.com/files/Ns1424QBI.jpg",
+    category: "Bracelet"
+  },
 ];
+
+// Add a function to validate image URLs before seeding
+const validateImageUrl = async (url) => {
+  try {
+    const response = await fetch(url);
+    return response.ok;
+  } catch (error) {
+    console.error(`Failed to validate image URL: ${url}`);
+    return false;
+  }
+};
 
 const seedDB = async () => {
   try {
+    console.log('Validating image URLs...');
+    for (const product of sampleProducts) {
+      const isValid = await validateImageUrl(product.image);
+      if (!isValid) {
+        console.warn(`Invalid image URL for ${product.name}: ${product.image}`);
+        // Set a fallback image URL if the original is invalid
+        product.image = "https://via.placeholder.com/300x300?text=Product+Image";
+      }
+    }
+
     await Product.deleteMany({});
     await Review.deleteMany({});
     const products = await Product.insertMany(sampleProducts);
@@ -111,4 +160,34 @@ const seedDB = async () => {
   }
 };
 
-seedDB(); 
+// Function to add new products without deleting existing ones
+const addNewProducts = async () => {
+  try {
+    console.log('Starting to add products...');
+    
+    // Get existing product names
+    const existingProducts = await Product.find({}, 'name');
+    const existingNames = new Set(existingProducts.map(p => p.name));
+    
+    // Filter out products that already exist
+    const newProducts = sampleProducts.filter(product => !existingNames.has(product.name));
+    
+    if (newProducts.length === 0) {
+      console.log('No new products to add.');
+      mongoose.connection.close();
+      return;
+    }
+
+    // Insert only new products
+    const insertedProducts = await Product.insertMany(newProducts);
+    console.log(`Successfully added ${insertedProducts.length} new products`);
+    
+    mongoose.connection.close();
+  } catch (error) {
+    console.error('Error adding products:', error);
+    mongoose.connection.close();
+  }
+};
+
+// Run the function
+addNewProducts(); 

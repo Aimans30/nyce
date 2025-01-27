@@ -15,7 +15,13 @@ const productSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: function(v) {
+        return /^https?:\/\/.+/.test(v);
+      },
+      message: props => `${props.value} is not a valid image URL!`
+    }
   },
   category: {
     type: String,

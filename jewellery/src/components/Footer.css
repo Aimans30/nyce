@@ -1,0 +1,108 @@
+.footer {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 4rem 0 2rem 0;
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--hover-color));
+}
+
+.footer-heading {
+  font-family: var(--heading-font) !important;
+  font-weight: 500 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  position: relative;
+}
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.8) !important;
+  line-height: 1.8 !important;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none !important;
+  display: block !important;
+  margin: 0.8rem 0 !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.footer-link:hover {
+  color: var(--primary-color) !important;
+  transform: translateX(5px);
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+.social-icons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  color: white !important;
+  transition: all 0.3s ease !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.social-icon:hover {
+  color: var(--primary-color) !important;
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.footer-bottom {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.9rem !important;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 3rem 0 1.5rem 0;
+  }
+
+  .footer-heading {
+    margin-top: 1rem !important;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+} 

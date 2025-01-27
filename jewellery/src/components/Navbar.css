@@ -1,0 +1,64 @@
+/* Update logo link styles */
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary-color) !important;
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* Rest of your existing Navbar.css styles */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Increased spacing between nav items */
+}
+
+.cart-icon {
+  margin-left: 2rem;
+  color: var(--primary-color) !important;
+}
+
+.cart-icon:hover {
+  color: var(--hover-color) !important;
+}
+
+/* Style the nav buttons */
+.nav-links .MuiButton-root {
+  font-size: 1.1rem;
+  padding: 8px 16px;
+  text-transform: none;
+}
+
+.nav-links .MuiButton-root:hover {
+  color: var(--hover-color) !important;
+}
+
+/* Make the navbar taller */
+.MuiToolbar-root {
+  min-height: 80px !important; /* Increased navbar height */
+  padding: 0 2rem !important; /* Add horizontal padding */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .navbar-logo {
+    height: 50px;
+  }
+  
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .MuiToolbar-root {
+    min-height: 70px !important;
+    padding: 0 1rem !important;
+  }
+
+  .nav-links .MuiButton-root {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
+} 

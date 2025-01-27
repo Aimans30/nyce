@@ -1,0 +1,591 @@
+:root {
+  --primary-color: #000000;  /* Black from the logo text */
+  --hover-color: #FF1493;    /* Pink from the hearts */
+  --accent-color: #FF69B4;   /* Light pink from the flower */
+  --text-color: #333;
+  --light-bg: #fafafa;
+  --heading-font: 'Cormorant Garamond', serif;  /* Elegant serif font */
+  --body-font: 'Montserrat', sans-serif;        /* Clean sans-serif font */
+}
+
+#root {
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%;
+}
+
+.App {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.hero-section {
+  background: #ffffff;
+  color: var(--primary-color);
+  padding: 0;  /* Remove padding to allow full width */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
+.hero-logo-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;  /* Change to column layout */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 4rem 2rem 2rem;  /* Reduce bottom padding */
+  margin: 0;
+  background-color: rgba(255, 192, 203, 0.2);
+  opacity: 0;
+  animation: fadeInBackground 0.8s ease forwards;
+}
+
+.hero-logo {
+  width: auto;
+  height: 300px;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  opacity: 0;  /* Start fully transparent */
+  animation: fadeInLogo 1.2s ease forwards;  /* Slightly longer, smoother animation */
+}
+
+.brand-name {
+  font-family: var(--heading-font) !important;
+  font-size: 5.5rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 10px !important;
+  margin-bottom: 0.5rem !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  animation: fadeInDown 1s ease;
+}
+
+.sub-brand {
+  font-family: var(--heading-font) !important;
+  font-size: 2.8rem !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  margin-bottom: 2rem !important;
+  letter-spacing: 4px !important;
+  animation: fadeIn 1.5s ease;
+}
+
+.hero-subtitle {
+  margin-top: 1.5rem !important;
+  font-family: 'Times New Roman', Times, serif !important;  /* Changed to Times New Roman */
+  font-size: 1.5rem !important;  /* Increased from 1.2rem to 1.5rem */
+  font-weight: 400 !important;
+  letter-spacing: 1.2px !important;  /* Slightly increased letter spacing */
+  color: #000000 !important;
+  max-width: 600px;
+  margin-bottom: 2rem !important;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.8s forwards;
+  text-transform: capitalize;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLogo {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.featured-section {
+  padding: 6rem 2rem !important;
+  background-color: #fafafa;
+}
+
+.section-title {
+  font-family: var(--heading-font) !important;
+  font-size: 2.5rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 3rem !important;
+  color: var(--text-color);
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.product-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  background: white;
+  position: relative;
+  min-height: 550px; /* Set minimum height */
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
+}
+
+.product-image {
+  height: 300px !important;
+  object-fit: contain !important;
+  background-color: #ffffff !important;
+  padding: 1rem;
+  width: 100% !important;
+}
+
+.product-image.error {
+  object-fit: contain !important;
+  padding: 2rem;
+  background-color: #fafafa;
+}
+
+.product-card .MuiCardMedia-root {
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.product-image-container {
+  position: relative;
+  height: 300px;
+  min-height: 300px; /* Force consistent height */
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Add loading state styles */
+.product-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f5f5f5;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.product-image-container.loading::before {
+  opacity: 1;
+}
+
+.product-card .MuiCardContent-root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem !important;
+  height: calc(100% - 300px); /* Subtract image height */
+}
+
+.product-card .MuiTypography-h6 {
+  font-family: var(--heading-font) !important;
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  color: var(--text-color) !important;
+  margin-bottom: 0.5rem !important;
+  line-height: 1.3 !important;
+}
+
+.product-card .MuiTypography-body2 {
+  font-family: var(--body-font) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.2px !important;
+  flex-grow: 1;
+  margin-bottom: 1rem !important;
+}
+
+.product-price {
+  font-family: var(--heading-font) !important;
+  font-size: 1.6rem !important;
+  color: var(--hover-color) !important;
+  font-weight: 600 !important;
+  margin: 1rem 0 !important;
+}
+
+.add-to-cart-btn {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 25px !important;
+  padding: 10px 20px !important;
+  transition: all 0.3s ease !important;
+  text-transform: none !important;
+  font-size: 1rem !important;
+}
+
+.add-to-cart-btn:hover {
+  background-color: var(--hover-color) !important;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+}
+
+.reviews-section {
+  padding: 6rem 2rem;
+  background-color: var(--light-bg);
+  text-align: center;
+}
+
+.reviews-grid {
+  margin-top: 3rem !important;
+  justify-content: center;
+}
+
+.review-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem !important;
+  border-radius: 15px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.reviewer-avatar {
+  width: 80px !important;
+  height: 80px !important;
+  margin-bottom: 1rem !important;
+}
+
+.review-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    padding: 3rem 1rem;
+    min-height: 50vh;
+  }
+
+  .hero-logo {
+    height: 200px;
+  }
+
+  .hero-logo-container {
+    padding: 2rem 1rem;
+  }
+
+  .brand-name {
+    font-size: 3.5rem !important;
+    letter-spacing: 6px !important;
+  }
+
+  .sub-brand {
+    font-size: 2rem !important;
+    letter-spacing: 2px !important;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem !important;  /* Increased mobile font size from 1rem to 1.2rem */
+    padding: 0 1rem;
+    margin-top: 1rem !important;
+  }
+  
+  .product-card {
+    min-height: 450px;
+  }
+
+  .product-image-container {
+    height: 250px;
+    min-height: 250px;
+  }
+
+  .product-card .MuiCardContent-root {
+    height: calc(100% - 250px);
+    padding: 1rem !important;
+  }
+
+  .product-card .MuiTypography-h6 {
+    font-size: 1.2rem !important;
+  }
+
+  .product-card .MuiTypography-body2 {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .product-price {
+    font-size: 1.4rem !important;
+  }
+
+  .add-to-cart-btn {
+    padding: 8px 16px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .featured-section,
+  .reviews-section,
+  .filters-section {
+    padding: 3rem 1rem !important;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .MuiContainer-root {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .MuiGrid-container {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .MuiGrid-item {
+    padding: 8px !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .product-card,
+  .review-card {
+    width: 100% !important;
+    margin: 0 auto !important;
+    box-sizing: border-box;
+  }
+
+  .review-card {
+    padding: 1.5rem !important;
+    margin: 0 auto !important;
+    max-width: 350px;
+    width: 100%;
+  }
+
+  .reviewer-avatar {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+.filters-section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.MuiSlider-root {
+  color: var(--primary-color) !important;
+}
+
+.MuiSelect-root {
+  background-color: white;
+}
+
+.filters-section .MuiFormControl-root {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.filters-section .MuiOutlinedInput-root {
+  border-radius: 8px;
+}
+
+.filters-section .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.filters-section .MuiSlider-valueLabel {
+  background-color: var(--primary-color);
+}
+
+/* Add these styles */
+.mobile-filter-btn {
+  display: none !important;
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 1000 !important;
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 25px !important;
+  padding: 10px 20px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.mobile-filter-btn:hover {
+  background-color: var(--hover-color) !important;
+}
+
+.filter-dialog .MuiDialog-paper {
+  border-radius: 15px !important;
+}
+
+.filter-dialog .MuiDialogTitle-root {
+  background-color: #fafafa;
+  padding: 16px 24px !important;
+}
+
+.filter-dialog .MuiDialogContent-root {
+  padding: 24px !important;
+}
+
+.filter-dialog .mobile-filters {
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Update media queries */
+@media (max-width: 600px) {
+  .desktop-filters {
+    display: none !important;
+  }
+
+  .mobile-filter-btn {
+    display: flex !important;
+  }
+
+  .mobile-filters .MuiGrid-container {
+    row-gap: 20px !important;
+  }
+}
+
+/* Add these animation styles */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional: Add different animations for different screen sizes */
+@media (min-width: 601px) {
+  .reveal-item {
+    transform: translateY(50px);
+  }
+}
+
+/* Optimize animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item {
+    transition: opacity 0.3s ease-out;
+    transform: none;
+  }
+}
+
+.price-range-label {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 10px;  /* Add padding to align with slider */
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.price-range-label .MuiTypography-caption {
+  font-size: 0.875rem;  /* Slightly larger font size */
+}
+
+.filters-section .MuiSlider-root {
+  color: var(--primary-color) !important;
+  margin: 0 10px !important;  /* Add margin to match label padding */
+  width: calc(100% - 20px) !important;  /* Adjust width to account for margin */
+}
+
+.filters-section .MuiSlider-valueLabel {
+  background-color: var(--primary-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Add hover effect for description */
+.product-card:hover .MuiTypography-body2 {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Grid item styles to ensure consistent widths */
+.featured-grid .MuiGrid-item {
+  display: flex;
+  align-items: stretch;
+} 
