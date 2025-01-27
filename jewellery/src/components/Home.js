@@ -29,8 +29,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useInView } from 'react-intersection-observer';
 import logo from '../images/Logo.png';
-
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -57,7 +56,7 @@ const Home = () => {
   const fetchProducts = async () => {
     try {
       console.log('Fetching products...');
-      const response = await fetch(`${API_URL}/products`);
+      const response = await fetch(`${API_URL}/api/products`);
       console.log('Response:', response);
       if (!response.ok) {
         throw new Error('Failed to fetch products');
@@ -75,7 +74,7 @@ const Home = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch(`${API_URL}/reviews`);
+      const response = await fetch(`${API_URL}/api/reviews`);
       if (!response.ok) {
         throw new Error('Failed to fetch reviews');
       }

@@ -15,6 +15,7 @@ import {
   MenuItem,
   CircularProgress
 } from '@mui/material';
+import { API_URL } from '../config';
 
 const ReviewDialog = ({ open, onClose }) => {
   const [review, setReview] = useState({
@@ -57,7 +58,7 @@ const ReviewDialog = ({ open, onClose }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/reviews', {
+      const response = await fetch(`${API_URL}/api/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
